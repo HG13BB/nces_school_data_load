@@ -13,8 +13,9 @@ import glob
 # In[2]:
 
 
-#connection to the open payments in data in mysql
-engine = sqlalchemy.create_engine('mysql+mysqlconnector://root:mysqlroot@localhost:3306/school_statistics',echo=False)
+#connection to mysql db
+constr = 'mysql+mysqlconnector://root:mysqlroot@localhost:3306/school_statistics'
+engine = sqlalchemy.create_engine(constr,echo=False)
 
 
 # In[4]:

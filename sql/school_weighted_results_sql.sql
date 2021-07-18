@@ -1,7 +1,9 @@
+#get weighted avg proficiency results by state for all demographic groups
+
 SELECT 
  ccd.ST
-,tst.schl_yr
 ,tst.dem_grp
+,tst.schl_yr
 ,tst.testtype
 ,sum(tst.numvalid) AS numstudents
 ,sum(tst.numvalid * tst.pctprof)  AS pctprof_weight
@@ -12,24 +14,25 @@ INNER JOIN school_statistics.test_score_history tst
 	ON tst.NCESSCH = ccd.NCESSCH
 
 WHERE 1=1
+AND tst.gradelevel = '00'
+AND tst.numvalid > 0
+#AND tst.dem_grp = 'ALL'
 #AND ccd.ST = 'NY'
 #AND ccd.SCH_NAME LIKE '%Sarah Anderson%'
-AND tst.dem_grp = 'ALL'
-AND tst.gradelevel = '00'
 #AND tst.schl_yr = '1819'
 #AND tst.testtype = 'MTH'
 #ORDER BY tst.schl_yr, tst.gradelevel
 
 GROUP BY 
  ccd.ST
-,tst.schl_yr
 ,tst.dem_grp
+,tst.schl_yr
 ,tst.testtype
 
 
 ORDER BY 
- ccd.ST
+ tst.testtype
+,ccd.ST
 ,tst.schl_yr
-,tst.testtype 
-
+,tst.dem_grp
 
